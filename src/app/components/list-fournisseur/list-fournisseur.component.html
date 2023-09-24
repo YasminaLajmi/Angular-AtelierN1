@@ -1,0 +1,7 @@
+<div *ngFor="let fournisseur of list">
+    <fieldset (dblclick)="deleteFournisseur(fournisseur.idFournisseur)" *ngIf="isIdValid(fournisseur.idFournisseur)" [style.background-color]="fournisseur.libelle=='hp' ? 'palegreen' : 'yellow'">
+        <legend>IdFournisseur: {{fournisseur.idFournisseur}}</legend>
+        <p [style.font-weight]="getColor(fournisseur.code) ? 'bold' : 'normal'">Code: {{fournisseur.code}}</p>
+        <p >Libelle: {{fournisseur.libelle}}</p>
+    </fieldset>
+</div>
