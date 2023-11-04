@@ -1,0 +1,83 @@
+<form #myForm="ngForm">
+    <div class="form-group">
+      <label>Id Product</label>
+      <input [(ngModel)]="product.id" required name="id" type="text" class="form-control" #idInput="ngModel">
+      <div *ngIf="idInput.dirty && idInput.invalid" class="alert alert-danger" role="alert">
+        Id Product est obligatoire
+        </div>
+      </div>
+      
+    <div class="form-group">
+      <label>Code</label>
+      <input [(ngModel)]="product.code" required pattern="[a-zA-Z0-9]{8}" type="text" name="code" #code="ngModel" class="form-control">
+      <div *ngIf="code.dirty && code.errors?.['required']" class="alert alert-danger" role="alert">
+          Le code est obligatoire    
+        </div>
+        <div *ngIf="code.dirty && code.errors?.['pattern']" class="alert alert-danger" role="alert">
+        Le code doit contenir 8 caractères           
+        </div>
+       
+    </div>
+    <div class="form-group">
+      <label>Libelle</label>
+      <input [(ngModel)]="product.name" required minlength="3" type="text" name="libelle" #libelle="ngModel" class="form-control">
+    
+      <div *ngIf="libelle.dirty && libelle.errors?.['required']" class="alert alert-danger" role="alert">
+        Le Libelle est obligatoire    
+    </div>
+    <div *ngIf="libelle.dirty && libelle.errors?.['minlength']" class="alert alert-danger" role="alert">
+        Le libelle doit contenir 3 caractères minimum         
+    </div>
+    </div>
+    <div class="form-group">
+      <label>Prix Unitaire</label>
+      <input [(ngModel)]="product.price" required pattern="[1-9][0-9]*" type="text" name="price" #price="ngModel" class="form-control">
+      <div *ngIf="price.dirty && price.errors?.['required']" class="alert alert-danger" role="alert">
+        Le prix est obligatoire    
+    </div>
+    <div *ngIf="price.dirty && price.errors?.['pattern']" class="alert alert-danger" role="alert">
+        Le prix unitaire ne contient que des chiffres.       
+    </div>
+    </div>
+   <!-- <button [hidden]="price.valid && idInput.valid && code.valid && libelle.valid" [disabled]="price.invalid || idInput.invalid || code.invalid || libelle.invalid" type="submit" class="btn btn-primary">Suivant</button>-->
+   <button *ngIf="price.invalid || idInput.invalid || code.invalid || libelle.invalid" [disabled]="price.invalid || idInput.invalid || code.invalid || libelle.invalid" type="submit" class="btn btn-primary">Suivant</button>
+  
+<!--<div [hidden]="price.invalid || idInput.invalid || code.invalid || libelle.invalid">-->
+<div *ngIf="price.valid && idInput.valid && code.valid && libelle.valid">
+    <div class="form-group">
+     <label>Id Details Product</label>
+     <input ngModel required type="text" name="detail" #detail="ngModel" class="form-control">
+     <div *ngIf="detail.dirty && detail.invalid" class="alert alert-danger" role="alert">
+        Id Details Product Required
+    </div>
+    </div>
+    <div class="form-group">
+        <label>Date de Création</label>
+        <input ngModel required type="date" name="datec" #datec="ngModel" class="form-control">
+        <div *ngIf="datec.dirty && datec.invalid" class="alert alert-danger" role="alert">
+            date required
+            </div>
+    </div>
+    <!--<div [hidden]="datec.invalid" class="form-group">-->
+    <div *ngIf="datec.valid" class="form-group">
+     <label>Date de derniere modification</label>
+     <input ngModel required type="date" name="datem" #datem="ngModel" class="form-control">
+     <div *ngIf="datem.dirty && datem.invalid" class="alert alert-danger" role="alert">
+        date required
+        </div>
+    </div>
+    <div class="form-group">
+      <label>Catégorie</label>
+      <select [(ngModel)]="product.category" required name="cat" #cat="ngModel" class="form-control" >
+        <option value="Electromenager">Electromenager</option>
+        <option value="Alimentaire">Alimentaire</option>
+        <option value="Quincaillerie">Quincaillerie</option>
+      </select>
+      <div *ngIf="cat.dirty && cat.invalid" class="alert alert-danger" role="alert">
+        category required
+        </div>
+    </div>
+   <!-- <button [hidden]="myForm.invalid"  type="submit" class="btn btn-primary">Ajouter</button>-->
+   <button *ngIf="myForm.valid"  type="submit" class="btn btn-primary">Ajouter</button>
+</div>
+</form>
